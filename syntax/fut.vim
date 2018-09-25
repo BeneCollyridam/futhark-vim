@@ -4,9 +4,10 @@ syn keyword keyword module open import empty reshape rearrange rotate split
 syn keyword keyword concat zip unzip unsafe
 syn keyword keyword let nextgroup=identifier
 
-syn keyword function map reduce reduce_comm scan filter partition stream_map
-syn keyword function stream_map_per stream_red stream_red_per stream_seq iota
-syn keyword function map2 map3 replicate scatter drop
+syn keyword function map map1 map2 map3 map4 map5 stream_map stream_map_per
+syn keyword function reduce reduce_comm scan filter partition
+syn keyword function stream_red stream_red_per stream_seq iota
+syn keyword function replicate scatter drop
 
 syn keyword boolean true false
 
