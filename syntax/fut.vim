@@ -2,7 +2,7 @@ syn keyword conditional if then else
 syn keyword keyword loop with fun entry fn for while do in local type val
 syn keyword keyword module open import empty reshape rearrange rotate split
 syn keyword keyword concat zip unzip unsafe
-syn keyword keyword let nextgroup=FutIdentifier skipwhite skipempty
+syn keyword keyword let entry nextgroup=FutIdentifier skipwhite skipempty
 
 syn keyword function map map1 map2 map3 map4 map5 stream_map stream_map_per
 syn keyword function reduce reduce_comm scan filter partition
