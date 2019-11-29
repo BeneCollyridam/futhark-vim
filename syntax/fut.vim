@@ -1,8 +1,15 @@
+syntax case match
+
+syn match Number "\v<([+-]?(0x[0-9a-fA-F]+|[0-9]+)([ui](8|16|32|64))?)>"
+
+syn match float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
+syn match float "\v([eE][\+\-]?[0-9]+)"
+
 syn keyword conditional if then else
-syn keyword keyword loop with entry for while do in local type val
-syn keyword keyword module open import
+syn keyword Statement loop with entry for while do in local type val
 syn keyword keyword concat zip unzip unsafe
-syn keyword FutharkBinding let entry nextgroup=FutIdentifier,TupleIdentifier skipwhite skipempty
+syn keyword FutharkBinding let entry nextgroup=FutIdentifier skipwhite skipempty
+syn keyword PreProc module open import nextgroup=FutIdentifier skipwhite skipempty
 
 syn keyword function map map1 map2 map3 map4 map5 stream_map stream_map_per
 syn keyword function reduce reduce_comm scan filter partition
@@ -14,43 +21,31 @@ syn keyword function id const
 
 syn keyword boolean true false
 
-syn match FutIdentifier "[a-zA-Z_][a-zA-Z0-9_]*" skipwhite contained
-syn region TupleIdentifier       start='(' end=')' fold transparent contains=FutIdentifier nextgroup=FutharkAssigment
+syn match FutIdentifier "[a-zA-Z_][a-zA-Z0-9_']*" skipwhite contained contains=NONE
 
 syn keyword type i8 i16 i32 i64 u8 u16 u32 u64 int real bool char f32 f64
 
 syn keyword typedef type
 
-syn keyword constant "[1-9][0-9]+" "[0-9]\.[0-9]+"
+syn match constant /'.'/
 
-syn match FutharkAssigment "="
-"syn match FutharkOperator  "\v[\+\-\*/><%\!&\|\^:]"
-syn match FutharkOperator "\v\+\+"
-syn match FutharkOperator "\v\=\="
-syn match FutharkOperator "\v\!\="
-syn match FutharkOperator "\v>\->"
-syn match FutharkOperator "\v<\-<"
-syn match FutharkOperator "\v\|>"
-syn match FutharkOperator "\v<\|"
+syn match FutharkAssigment "\v\="
+syn match FutharkOperator  "\(+\|-\|*\|/\|>\|<\|%\|!\|&\||\|\^\)"
+syn match FutharkOperator  "\(++\|==\|!=\|>->\|<-<\||>\|<|\)" containedin=FutharkLambdaOperator
 
-syn match FutharkOperator "\v\(\ *[\+\-\*\/]\ *\)"
-syn match FutharkOperator "\v\(\ *\.[0-9]\ *\)"
+" Literally the same, just with parenthesis
+syn match FutharkLambdaOperator "(\ *\(++\|==\|!=\|>->\|<-<\||>\|<|\)\ *)"
+syn match FutharkLambdaOperator "(\ *\(+\|-\|*\|/\|>\|<\|%\|!\|&\||\|^\)\ *)"
+syn match FutharkLambdaOperator "(\ *\(\.[1-9][0-9]*\)\ *)"
+syn match FutharkLambdaOperator /).[1-9][0-9]*/ms=s+1
 
-syn match Number "(?<![\w\.])"
-syn match Number "\v([+-]?(0x[0-9a-fA-F]+|[0-9]+)([ui](8|16|32|64))?)"
-syn match Number "(?![\w\.])"
-
-syn match float "(?<![\w\.])"
-syn match float "\v(([0-9]+\.[0-9]+|[0-9]+f(32|64))(f(32|64))?)"
-syn match float "\v([eE][\+\-]?[0-9]+)"
-syn match float "(?![\w\.])"
-
-syn region string start=/"/ skip=/\\"/ end=/"/
+syn region string start=/"/ skip=/\\"/ end=/"/ keepend excludenl
 
 syn match comment "--.*$"
 
 hi def link FutIdentifier Function
-hi def link FutharkBinding keyword
+
+hi def link FutharkBinding Statement
 hi def link number constant
 hi def link FutharkOperator operator
-"hi def link TupleIdentifier keyword
+hi def link FutharkLambdaOperator operator
