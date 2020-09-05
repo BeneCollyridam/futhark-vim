@@ -10,6 +10,7 @@ syn keyword Statement loop with entry for while do in local type val
 syn keyword keyword concat zip unzip unsafe
 syn keyword FutharkBinding let entry nextgroup=FutIdentifier skipwhite skipempty
 syn keyword PreProc module open import nextgroup=FutIdentifier skipwhite skipempty
+syn keyword FutharkCase match case
 
 syn keyword function map map1 map2 map3 map4 map5 stream_map stream_map_per
 syn keyword function reduce reduce_comm scan filter partition
@@ -49,3 +50,4 @@ hi def link FutharkBinding Statement
 hi def link number constant
 hi def link FutharkOperator operator
 hi def link FutharkLambdaOperator operator
+hi def link FutharkCase Keyword
